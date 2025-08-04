@@ -15,7 +15,11 @@ var swiper = new Swiper(".mySwiper", {
     prevEl: ".swiper-button-prev",
   },
 });
-
+let registerButton = document.querySelector('.register');
+let nameinput = document.querySelector('.nameInput');
+registerButton.addEventListener('click',()=>{
+  alert('You are Gay, ' + nameinput.value + '!');
+})
 
 const teacherSwiper = new Swiper(".teacherSwiper", {
   slidesPerView: 1,
@@ -51,3 +55,47 @@ mainSlider.addEventListener("mouseleave", () => {
   swiper.autoplay.start();
 });
 // Get the current URL
+// Mobile navigation functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+  const mobileToggle = document.createElement('div');
+  mobileToggle.className = 'mobile-menu-toggle';
+  mobileToggle.innerHTML = `
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  `;
+  document.body.appendChild(mobileToggle);
+
+  const nav = document.querySelector('.nav');
+  const hamburger = document.querySelector('.hamburger');
+  
+  // Toggle mobile menu
+  mobileToggle.addEventListener('click', function() {
+    nav.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  });
+
+  // Dropdown toggle functionality
+  document.querySelectorAll('.dropdown > .fac, .dropdown-sub').forEach(item => {
+    item.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) { // Only for mobile
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const parent = this.parentElement;
+        parent.classList.toggle('active');
+        
+        if (parent.classList.contains('dropdown')) {
+          const menu = parent.querySelector('.dropdown-menu');
+          menu.classList.toggle('active');
+        } else if (parent.classList.contains('dropdown-sub')) {
+          const submenu = parent.querySelector('.submenu');
+          submenu.classList.toggle('active');
+        }
+      }
+    });
+  });
+});
